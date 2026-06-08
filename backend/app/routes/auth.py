@@ -72,3 +72,10 @@ def login(user: UserLogin, db: Session = Depends(get_db)):
         "access_token": access_token,
         "token_type": "bearer"
     }
+
+from app.dependencies.auth import get_current_user
+from app.schemas.user import ProfileResponse
+
+@router.get("/me", response_model=ProfileResponse)
+def get_me(current_user: User = Depends(get_current_user)) -> User:
+    return current_user

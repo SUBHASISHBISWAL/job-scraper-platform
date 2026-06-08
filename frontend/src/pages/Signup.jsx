@@ -2,25 +2,35 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-function Login() {
+function Signup() {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { signup } = useAuth();
 
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const handleLogin = async (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
     setError("");
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
     setLoading(true);
 
     try {
-      await login(email, password);
-      navigate("/dashboard");
+      await signup(name, email, password);
+      alert("Registration successful! You can now log in.");
+      navigate("/login");
     } catch (err) {
-      setError(err.response?.data?.detail || "Invalid email or password");
+      setError(err.response?.data?.detail || "Signup failed. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -28,10 +38,10 @@ function Login() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex items-center justify-center p-6 relative">
-      {/* Premium background radial glows */}
+      {/* Background radial glows */}
       <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-indigo-500/5 rounded-full blur-[100px] pointer-events-none"></div>
       <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-purple-500/5 rounded-full blur-[100px] pointer-events-none"></div>
-      
+
       <div className="w-full max-w-md bg-slate-900 border border-slate-800 p-8 rounded-2xl shadow-2xl relative">
         {/* Brand details */}
         <div className="text-center mb-8">
@@ -41,8 +51,8 @@ function Login() {
             </div>
             <span className="text-lg font-bold text-white tracking-wider">HireKarma</span>
           </Link>
-          <h2 className="text-2xl font-bold text-white">Welcome back</h2>
-          <p className="text-slate-400 text-sm mt-1">Please enter your credentials to login</p>
+          <h2 className="text-2xl font-bold text-white">Create an account</h2>
+          <p className="text-slate-400 text-sm mt-1">Get started with automated SDE job scraping</p>
         </div>
 
         {error && (
@@ -51,9 +61,23 @@ function Login() {
           </div>
         )}
 
-        <form onSubmit={handleLogin} className="space-y-5">
+        <form onSubmit={handleSignup} className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+              Full Name
+            </label>
+            <input
+              type="text"
+              placeholder="John Doe"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full bg-slate-950 border border-slate-800 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/15 rounded-xl px-4 py-3 text-sm text-white focus:outline-none transition-all duration-150 placeholder:text-slate-500"
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
               Email Address
             </label>
             <input
@@ -67,7 +91,7 @@ function Login() {
           </div>
 
           <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
               Password
             </label>
             <input
@@ -80,19 +104,33 @@ function Login() {
             />
           </div>
 
+          <div>
+            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+              Confirm Password
+            </label>
+            <input
+              type="password"
+              placeholder="••••••••"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              className="w-full bg-slate-950 border border-slate-800 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/15 rounded-xl px-4 py-3 text-sm text-white focus:outline-none transition-all duration-150 placeholder:text-slate-500"
+              required
+            />
+          </div>
+
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-indigo-650 hover:bg-indigo-600 disabled:bg-indigo-600/55 text-white font-semibold rounded-xl py-3.5 text-sm transition-all shadow-md shadow-indigo-500/25 active:scale-[0.98]"
+            className="w-full bg-indigo-655 hover:bg-indigo-600 disabled:bg-indigo-600/55 text-white font-semibold rounded-xl py-3.5 text-sm transition-all shadow-lg shadow-indigo-500/25 active:scale-[0.98]"
           >
-            {loading ? "Authenticating..." : "Sign In"}
+            {loading ? "Registering..." : "Create Account"}
           </button>
         </form>
 
         <p className="text-center text-slate-400 text-sm mt-8">
-          Don't have an account?{" "}
-          <Link to="/signup" className="text-indigo-400 hover:text-indigo-300 font-semibold transition-colors">
-            Sign Up
+          Already have an account?{" "}
+          <Link to="/login" className="text-indigo-400 hover:text-indigo-300 font-semibold transition-colors">
+            Sign In
           </Link>
         </p>
       </div>
@@ -100,4 +138,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Signup;

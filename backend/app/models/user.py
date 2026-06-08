@@ -8,3 +8,9 @@ class User(Base):
     name = Column(String, nullable=False)
     email = Column(String, unique=True, nullable=False)
     password = Column(String, nullable=False)
+
+    phone = Column(String, nullable=True)
+    location = Column(String, nullable=True)
+    skills = Column(String, nullable=True)
+
+    profile_image = Column(String, nullable=True)
