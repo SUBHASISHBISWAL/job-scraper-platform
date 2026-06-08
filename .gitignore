@@ -151,4 +151,6 @@ venv/
 env/
 *.db
 jobscraper.db
+backend/app/static/uploads/
+
 

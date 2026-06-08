@@ -125,6 +125,13 @@ function Profile() {
     }
   };
 
+  const getImageUrl = (path) => {
+    if (!path) return "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80";
+    if (path.startsWith("http")) return path;
+    const baseUrl = import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000";
+    return `${baseUrl}${path}`;
+  };
+
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col md:flex-row md:pl-64">
       <Sidebar />
@@ -147,7 +154,7 @@ function Profile() {
           <div className="flex flex-col sm:flex-row items-center gap-6 pb-6 border-b border-slate-800">
             <div className="relative group">
               <img
-                src={profile.profile_image || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80"}
+                src={getImageUrl(profile.profile_image)}
                 alt="Avatar"
                 className="w-28 h-28 rounded-full border-2 border-indigo-500 object-cover bg-slate-950 shadow-md"
               />

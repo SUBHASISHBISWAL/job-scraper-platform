@@ -8,6 +8,13 @@ function Sidebar() {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
 
+  const getImageUrl = (path) => {
+    if (!path) return "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80";
+    if (path.startsWith("http")) return path;
+    const baseUrl = import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000";
+    return `${baseUrl}${path}`;
+  };
+
   const links = [
     { name: "Dashboard", path: "/dashboard", icon: "📊" },
     { name: "Search Jobs", path: "/jobs", icon: "🔍" },
@@ -77,7 +84,7 @@ function Sidebar() {
         <div className="border-t border-slate-800 pt-6">
           <div className="flex items-center gap-3 mb-4">
             <img
-              src={user?.profile_image || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80"}
+              src={getImageUrl(user?.profile_image)}
               alt="Avatar"
               className="w-10 h-10 rounded-full border border-slate-700 object-cover"
             />
