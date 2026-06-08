@@ -18,8 +18,8 @@ A production-ready Full-Stack Job Scraper and Tracking Platform designed to aggr
 ## 🛠️ Technology Stack
 
 *   **Frontend**: React (Vite), Tailwind CSS v4, Axios, React Router Dom.
-*   **Backend**: FastAPI (Python), SQLAlchemy, PyPDF2, Scikit-Learn.
-*   **Database**: PostgreSQL (with automatic SQLite fallback for simple offline setups).
+*   **Backend**: FastAPI (Python), SQLAlchemy, PyPDF2, Pure-Python Cosine Similarity engine.
+*   **Database**: PostgreSQL (with automatic SQLite fallback `jobscraper.db` for offline setups out-of-the-box).
 
 ---
 
@@ -34,11 +34,11 @@ A production-ready Full-Stack Job Scraper and Tracking Platform designed to aggr
     ```bash
     pip install -r requirements.txt
     ```
-3.  Configure environment variables in a `.env` file:
-    ```env
-    DATABASE_URL=postgresql://postgres:postgres123@localhost:5432/jobscraper
-    GEMINI_API_KEY=your_gemini_api_key_here
+3.  Configure environment variables by copying `.env.example` to `.env`:
+    ```bash
+    cp .env.example .env
     ```
+    *(Note: If you leave `DATABASE_URL` empty or do not run PostgreSQL, the system automatically creates and connects to a local SQLite database)*
 4.  Launch the FastAPI server:
     ```bash
     uvicorn app.main:app --reload
