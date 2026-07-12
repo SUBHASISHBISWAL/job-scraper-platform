@@ -1,11 +1,11 @@
-# HireKarma Job Scraper Platform
+# Job Scraper Platform
 
 [![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-Proprietary-red.svg)](#license)
 [![Python](https://img.shields.io/badge/python-3.10%2B-green.svg)](https://www.python.org/)
 [![React](https://img.shields.io/badge/react-19.2.6-61dafb.svg)](https://react.dev/)
 
-**HireKarma** is a production-ready full-stack job scraper and tracking platform designed for SDE candidates in India. It aggregates active job listings from major Indian portals, computes AI-powered compatibility scores against candidate resumes, and tracks application history — all wrapped in a modern, dark-themed SaaS UI.
+It is a production-ready full-stack job scraper and tracking platform designed for SDE candidates in India. It aggregates active job listings from major Indian portals, computes AI-powered compatibility scores against candidate resumes, and tracks application history — all wrapped in a modern, dark-themed SaaS UI.
 
 ---
 
