@@ -39,11 +39,18 @@ A production-ready Full-Stack Job Scraper and Tracking Platform designed to aggr
     cp .env.example .env
     ```
     *(Note: If you leave `DATABASE_URL` empty or do not run PostgreSQL, the system automatically creates and connects to a local SQLite database)*
+
+    
 4.  Launch the FastAPI server:
     ```bash
     uvicorn app.main:app --reload
     ```
     *(The backend will be accessible at `http://127.0.0.1:8000`)*
+
+    .\venv\Scripts\activate
+python -m uvicorn app.main:app --reload
+
+
 
 ### 2. Frontend Setup
 1.  Navigate to the frontend directory:

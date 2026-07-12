@@ -9,6 +9,8 @@ from app.schemas.login import UserLogin
 from app.utils.jwt import create_access_token
 from app.utils.security import verify_password
 
+import re
+
 router = APIRouter(
     prefix="/auth",
     tags=["Authentication"]
@@ -16,6 +18,7 @@ router = APIRouter(
 
 @router.post("/signup")
 def signup(user: UserSignup, db: Session = Depends(get_db)):
+
 
     existing_user = db.query(User).filter(
         User.email == user.email
@@ -29,7 +32,7 @@ def signup(user: UserSignup, db: Session = Depends(get_db)):
 
     new_user = User(
         name=user.name,
-        email=user.email,
+        email= user.email,
         password=hash_password(user.password)
     )
 
@@ -78,4 +81,4 @@ from app.schemas.user import ProfileResponse
 
 @router.get("/me", response_model=ProfileResponse)
 def get_me(current_user: User = Depends(get_current_user)) -> User:
-    return current_user
+    return current_user
